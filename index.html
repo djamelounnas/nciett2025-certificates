@@ -1,51 +1,254 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>NCIETT’2025 — Certificate Validation</title>
+  <title>Certificate Validation - NCIETT 2025</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background:#f7f9fc; }
-    h1 { color:#003366; text-align:center; }
-    form { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); max-width:600px; margin:auto; }
-    label { display:block; margin-top:15px; font-weight:bold; }
-    .required { color:red; }
-    input, textarea { width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:6px; }
-    button { margin-top:20px; padding:12px 24px; background:#003366; color:#fff; border:none; border-radius:6px; cursor:pointer; }
-    button:hover { background:#0055aa; }
-    .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:30px; }
-    .logo-left, .logo-right { height:80px; }
-    .header-title { text-align:center; flex-grow:1; }
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .hidden { display: none; }
+    label { font-weight: bold; display: block; margin-top: 10px; }
+    .preview { border: 1px solid #ccc; padding: 15px; margin-top: 20px; background: #f9f9f9; }
+    
+    /* Modern Input and Select Styling */
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    input[type="text"]:focus, textarea:focus, select:focus {
+      border-color: #6a11cb;
+      box-shadow: 0 0 8px rgba(106, 17, 203, 0.4);
+      outline: none;
+    }
+    
+    /* Modern Button Styling */
+    .btn {
+      display: block;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      margin: 20px auto;     /* Centre automatiquement en horizontal */
+      text-align: center;    /* Centre le texte dans le bouton */
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      width: auto;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+    }
   </style>
 </head>
 <body>
+    <!-- Intro section with logo, text and photo -->
+  <div style="display:flex; align-items:center; gap:20px; background:#f0f4ff; padding:15px; border-radius:8px; border-left:5px solid #6a11cb; margin-bottom:20px;">
+    <!-- Logo -->
+    <img src="https://nciett2025.sciencesconf.org/data/header/NCIETT_2025_1_1.png" alt="NCIETT 2025 Logo" style="height:180px; border-radius:6px;">
 
-<div class="header">
-  <img src="https://nciett2025.sciencesconf.org/data/pages/logo_LTU.png" alt="LTU Logo" class="logo-left">
-  <div class="header-title">
-    <h1>NCIETT’2025 Certificate Validation</h1>
-    <h2>Tébessa, Algeria — 23-24 September 2025</h2>
-    <p>The First National Conference on Innovation in Electronics and Telecommunication Technologies (NCIETT’2025)</p>
+    <!-- Texte -->
+    <div style="flex:1;">
+      <p style="font-size:15px; color:#444; margin:0; line-height:1.6;">
+        This online application was created by <strong>Dr. Djamel Ounnas</strong> to assist the authors of the 
+        <em>First National Conference on Innovation in Electronics and Telecommunication Technologies (NCIETT’2025)</em> 
+        in verifying and validating their certificate information.
+      </p>
+    </div>
+
+    <!-- Photo -->
+    <img src="https://nciett2025.sciencesconf.org/data/pages/djamel_ounnas.jpg.jpg"  alt="Dr. Djamel Ounnas" style="height:180px; border-radius:80%; border:2px solid #6a11cb;">
   </div>
-  <img src="https://nciett2025.sciencesconf.org/data/pages/logo_NCIETT_2025.png" alt="NCIETT Logo" class="logo-right">
+<!-- Login Section -->
+<div id="loginSection" style="text-align:center; margin-top:100px;">
+  <h2>Certificate Validation – Login</h2>
+  <label for="paperIdInput">Paper ID :</label><br>
+  <input type="text" id="paperIdInput" placeholder="Enter your Paper ID" 
+         style="padding:10px; width:250px; margin:10px;"><br>
+  <button class="btn" onclick="checkLogin()">Login</button>
+  <p id="loginMessage" style="color:red; font-weight:bold; margin-top:10px;"></p>
 </div>
 
-<p style="text-align:center;">Please fill in your information to confirm your certificate details.</p>
 
-<form action="mailto:nciett2025@univ-tebessa.dz" method="post" enctype="text/plain">
-  <label>First & Last Name <span class="required">*</span></label>
-  <input type="text" name="Name" required>
+<!-- Page principale (cachée au début) -->
+<div id="mainPage" style="display:none;">
 
-  <label>Paper Title <span class="required">*</span></label>
-  <textarea name="Title" rows="3" required></textarea>
 
-  <label>Co-authors (if any)</label>
-  <input type="text" name="Co-authors">
 
-  <label>Place & Date <span class="required">*</span></label>
-  <input type="text" name="Place" value="Tébessa, Algeria — 23-24 Sep 2025" required>
 
-  <button type="submit">📧 Send Confirmation</button>
-</form>
+  <h2>Certificate Validation – NCIETT 2025</h2>
+
+  <!-- Search input -->
+  <label>First name or Last name :</label>
+  <input type="text" id="searchInput" placeholder="Enter your name">
+  <button class="btn" onclick="searchPapers()">🔍 Search</button>
+
+  <!-- Dropdown for multiple papers -->
+  <div id="paperSelectDiv" class="hidden">
+    <label>Choose your paper :</label>
+    <select id="paperSelect" onchange="loadPaperDetails()"></select>
+  </div>
+
+  <!-- Editable form -->
+  <div id="editForm" class="hidden">
+    <label>Full Name (first author) :</label>
+    <input type="text" id="fullName">
+
+    <label>Paper Title" :</label>
+    <textarea id="paperTitle"></textarea>
+
+    <label>Co-authors :</label>
+    <textarea id="coAuthors"></textarea>
+
+    <button id="validateButton" class="btn">✅ Validate</button>
+  </div>
+
+  <!-- Certificate preview -->
+  <div id="preview" class="preview hidden"></div>
+
+  <!-- Hidden Google Form -->
+  <form id="googleForm" 
+        action="https://docs.google.com/forms/d/e/1FAIpQLSdmZ93znOa02LgKb7nffMLJeiu2H2mW2WHSc1pngnc7Zw_2BQ/formResponse" 
+        method="POST" target="hidden_iframe">
+    <input type="hidden" name="entry.1993031526" id="gf_name">
+    <input type="hidden" name="entry.25266326" id="gf_title">
+    <input type="hidden" name="entry.1005578249" id="gf_coauthors">
+    <input type="hidden" name="entry.515985992" id="gf_date">
+  </form>
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+  </div>
+
+  <script>
+    const papers = [{"fullName": "Djamel Ounnas", "title": "A Combined Methodology of Takagi-Sugeno Fuzzy Control and PSO for a DC-DC Boost Converter", "coAuthors": "Guiza Daouadi, Soufi Youcef"}, {"fullName": "Mahri Omar", "title": "A Compact Fractal CPW-Fed Monopole Antenna Based on Modified Sierpinski Gasket for UWB Applications", "coAuthors": "Guebgoub Nassima"}, {"fullName": "Louda Souhaib", "title": "A Comparative Performance Analysis of PID, MPC, and DWA Controllers for Mobile Robot Path Planning and Navigation", "coAuthors": "Karkar Nora, Seghir Fateh, Boutalbi Oussama"}, {"fullName": "Guebgoub Nassima", "title": "A Dual-Fractal Miniature Antenna with Enhanced Bandwidth for UWB and Satellite Networks", "coAuthors": "Mahri Omar"}, {"fullName": "Bachiri Mohamed Elssaleh", "title": "A New Deep Learning model for Ovarian Cancer tissues classification", "coAuthors": ""}, {"fullName": "Aichaoui Mawloud", "title": "Adaptive Backstepping Control for Upper Limb Rehabilitation Robot using PSO and GWO Tuning: a Comparative Study", "coAuthors": "Rabahi Zoubir, Lkhlef Ameur"}, {"fullName": "Latreche Sofiane", "title": "Adaptive M-QAM Modulation and Throughput Performance Evaluation in 6G Networks", "coAuthors": "Bellahsene Hocine"}, {"fullName": "Lounoughi Fatima", "title": "Affine Projection Algorithms for Adaptive Equalization: A Comparative Study", "coAuthors": "Djendi Mohamed"}, {"fullName": "Moutaz Bellah Bentrad", "title": "AI-Driven Diagnosis of Air Gap Irregularity in Three-Phase Induction machine using Decision", "coAuthors": "Adel Ghoggal, Tahar Bahi"}, {"fullName": "Boudjella Fatima Zohra", "title": "AI-Powered Detection of Internal Faults in Transformers Using Dissolved Gas Analysis", "coAuthors": "Boudjella Souhila, Senoussaoui Mohamed El Amin"}, {"fullName": "Djeddi Saoussen", "title": "Analysis and Discussion on Phase Unwrapping Techniques for SAR Interferometry", "coAuthors": "Tarek Bentahar, Riad Saidi"}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Mahiddine Soulef", "title": "Battery SOC Estimation based on first-order equivalent", "coAuthors": "Djeddi Abdelghani, Dib Djalel, Lemita Ines"}, {"fullName": "Lounoughi Fatima", "title": "Benchmarking New Adaptive Equalizers Leveraging a Different Robust Adaptive Algorithms:NLMS, APA, PAP, and MRNQ", "coAuthors": "Djendi Mohamed"}, {"fullName": "Ayada Amira", "title": "Comparative Analysis of PID and SMC Techniques for DC-DC Buck Converter Regulation", "coAuthors": "Ounnas Djamel, Guiza Dhaouadi"}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Melki Abderrazak", "title": "Comparative Study of MPPT Algorithms Using Fuzzy Logic Control, Incremental Conductance and Perturb and Observe in Photovoltaic Systems", "coAuthors": "Ounnas Djamel, Guiza Dhaouadi"}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Guiza Dhaouadi", "title": "Design and Optimization of Stand-alone Photovoltaic Water Pumping Systems for Remote Areas", "coAuthors": "Ounnas Djamel, Soufi Youcef"}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Abdelmalek Feriel", "title": "Design of a Novel Hybrid Grey Wolf Equilibrium Optimizer for MPPT to Enhance the Efficiency of Solar Photovoltaic Systems", "coAuthors": "Afghoul Hamza, Krim Fateh, Zabia Djallal Eddine, Krim Salah Anis, Boukhdanna Alla Eddine, Bouzidi Belgacem Med Nassim"}, {"fullName": "Ammaoui Youcef", "title": "Detection and Localization of Faults in Induction MachInes through Automatic Control Techniques.", "coAuthors": "Tafinine Farid"}, {"fullName": "Hamzaoui Assia", "title": "Development and Performance Assessment of a Bio-Inspired SPR Sensor Using Photonic Crystal Fibers", "coAuthors": "Gouder Soraya, Aouiche Abdelaziz"}, {"fullName": "Daoudi Islam", "title": "Direct Adaptive Network Controller for Chaos horizontal pltform", "coAuthors": "Aichaoui Mawloud, Rabahi Zoubir, Mohamed Chemchema"}, {"fullName": "Nehal Ouassila", "title": "DIRECT TORQUE CONTROL OF A WIND TURBINE WITH A SLIDING-MODE CONTROLLER", "coAuthors": "Dib Jalel, Dib Elohada"}, {"fullName": "Brahmi Oussama", "title": "Dragonfly Algorithm-Based Onâ€“Off Control for Torque Ripple Minimization in WECS.", "coAuthors": "Kahla Sami, Bouchemha Amel"}, {"fullName": "Benayad Nizar", "title": "Electric Vehicle Performance Improvement", "coAuthors": "Aouiche Abdelaziz, Djeddi Abdelghani"}, {"fullName": "Mahdjoub Fatma Zahra", "title": "End-Fire Microphone Array with All-Pass Filter Phase Compensation for Enhanced Directionality", "coAuthors": "Maamri Mahmoud, Guatal Azzedine"}, {"fullName": "Bitat Hiba Ines", "title": "Enhancing Subspace-Based DOA Estimation via Block Coordinate Descent Optimization", "coAuthors": "Maamri Fouzia, Messai Yacine, Djellab Hanane, Khelfaoui Fatima, Boumehrez Farouk"}, {"fullName": "Allaoua Oumaima", "title": "Evaluating NOMA vs. OMA for Future Wireless Communications", "coAuthors": "Djellab Hanane, Maamri Fouzia, Saber Menaa, Ahmed Mohamed Salem"}, {"fullName": "Khedidja Mekhilef", "title": "Evaluation of SE, ECA, and CA Modules in ResNet50 for the Classification of Grape Leaf Diseases", "coAuthors": ""}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Lounoughi Fatima", "title": "Exploring the Performance of a Modified Non-Quadratic Recursive Algorithm for Adaptive Equalization", "coAuthors": "Djendi Mohamed"}, {"fullName": "Abla Bouguerne", "title": "Fault Classification in Induction MachInes Using Wavelet-Based Vibration Analysis and Gaussian Mixture Model", "coAuthors": "Aziz Boukadoum, Laatra Yousfi, Mohamed Salah Djebbar, Yousef Soufi"}, {"fullName": "Khacha Amina", "title": "Federated Hybrid Deep Learning-Based IDS for Securing Agricultural IoT Networks", "coAuthors": "Saadouni Rafika, Harbi Yasmine, Aliouat Zibouda, Chirihane Gherbi"}, {"fullName": "Ksenna Souad", "title": "Fractional-Order Optimization for Multi-Class OCT Image Classification: Evaluating the Efficacy of FOS-FOAdam in Deep Learning", "coAuthors": "Talbi Mohamed Lamine, Saoudi Rania"}, {"fullName": "Messikh Akram", "title": "Fuzzy Control for wastewater treatment", "coAuthors": "Bekaik Mounir, Ounnas Djamel"}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Rabahi Zoubir", "title": "Fuzzy PSO-Based Tuning of a Fractional-Order PID Controller for a Continuous Stirred Tank Reactor", "coAuthors": "Aichaoui Mawloud, Islem Daoudi, Mohamed Chemachema"}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Aziz Boukadoum", "title": "Hybrid PV-Wind-Battery system connected to the grid powering a variable AC load", "coAuthors": "Tahar Bahi, Abla Bouguerne, Hichem Merabet, Laatra Yousfi, Mohamed Salah Djebbar"}, {"fullName": "Allaoua Oumaima", "title": "Impact of Divergence Angle on FSO System Performance: A Study of SNR, BER, and Q Factor", "coAuthors": "Hanane Djellab, Maamri Fouzia, Salem Ahmed Mohamed"}, {"fullName": "Bensehila Aissa", "title": "Impact of the Single-Sided Linear Induction Motor Movement on the Characteristics and Performance", "coAuthors": "Bouzidi Athmane, Takorabet Noureddine"}, {"fullName": "Djehaiche Rania", "title": "Improving Arabic Dialect Processing in IoT Systems: A Comparative Study of Baseline and Dialect-Aware AI Models", "coAuthors": "Djehaiche Yamena"}, {"fullName": "Messai Yacine", "title": "Improving Energy Efficiency of 5G Networks by implementing NOMA Constraints in OOBO", "coAuthors": "Maamri Fouzia, Djellab Hanane, Boumehrez Farouk, Sahour Abdelhakim, Bitat Hiba Ines, Brai Saddam"}, {"fullName": "Ababsia Houria", "title": "Intelligent Control of Active and Reactive Power in Transmission LInes Using UPFC and PSO-FLC", "coAuthors": "Dib Djalel, Djeddi Abdelaghani"}, {"fullName": "Kaci Meziane", "title": "Intelligent Prediction of DC Bus Voltage Using LSTM Networks in a Multi-Source Power System", "coAuthors": "Hassane Ezziane, .Slim Rouabah, Layate Zakaria, Hamou Nouri, Hakim Ait Said"}, {"fullName": "Dounia Touahria", "title": "Intelligent Speed Control of a BLDC Motor for Electric Vehicles Using ACO-Tuned PI Controller in MATLAB/Simulink", "coAuthors": "Amel Bouchemha, Sami Kahla"}, {"fullName": "Bitat Hiba Ines", "title": "Joint Spectral Efficiency and Throughput Optimization in Massive MIMO via the Whale Optimization Algorithm", "coAuthors": "Maamri Fouzia, Messai Yacine, Sahour Abdelhakim, Boumehrez Farouk, Aouissi Feriel"}, {"fullName": "Lemita Abdallah", "title": "LQR controller with integral action for Fly-buck converter in a switched mode power supply", "coAuthors": "Ines Lemita"}, {"fullName": "Nour El Houda Bezzar", "title": "Machine Learning Forecasting of Residential Electricity in Smart Grids", "coAuthors": "Abdallah Meraoumia, Lotfi Houam"}, {"fullName": "Boukhamla Fouad", "title": "Microgrid Management with Priority-Based Load Shedding Strategy", "coAuthors": "Soufi Youcef, Guiza Dhaouadi"}, {"fullName": "Sehili Laid", "title": "Model Reference Adaptive Control for Cruise Control Systems with Unknown Vehicle Parameters", "coAuthors": "Hamaidi Ouarda"}, {"fullName": "Zine Mahmoud", "title": "Modeling and Analysis of a 12/8 Switched Reluctance Machine Using the Finite Element Method Considering Nonlinear Effects", "coAuthors": "Chouaib Labiod, Souhaib Remha, Lamine Medekhel, Kamel Srairi, Mohamed Benbouzid"}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Lzgheche Yousra", "title": "Optimization of MPPT in Photovoltaic Systems Under Partial Shading", "coAuthors": "Bahi Tahar"}, {"fullName": "Saadi Moufida", "title": "Optimizing a Hybrid PV-Wind System with Fuzzy Logic-Based Intelligent Management", "coAuthors": "Dib Djalel, Sakina Aoun, Brahim Ayeb, Chouaib Souaidia"}, {"fullName": "Tamali Abderrahmane", "title": "Optimizing Wireless Communication in MultiRobot Systems via Reinforcement Learning in ROS", "coAuthors": "Tamali Mohammed"}, {"fullName": "Lemita Ines", "title": "Power Quality Improvement in a wind Energy System Based on DFIG Using SAPF", "coAuthors": "Chelli Zoubir, Lemita Abdallah, Mahiddine Soulef"}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Gamouh Samia", "title": "Real-Time Embedded Control System for Modern Elevator Management", "coAuthors": "Boukaous Chahra, Gouder Soraya, Touafek Naima"}, {"fullName": "Ben Messaoud Safinaz", "title": "Robust Trajectory Tracking of a PVTOL System Using Active Disturbance Rejection Control", "coAuthors": "Belkhiri Mohammed, Tzitzihua Garcأ\xadA Eduardo, Rabhi Abdelhamid, Lara Alabazares David"}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Sehili Laid", "title": "Sliding Mode Control for Vehicle Cruise Systems under Road Gradient and Payload Variations", "coAuthors": "Hamaidi Ouarda"}, {"fullName": "Lounoughi Fatima", "title": "Structural and Performance Comparison of Decision Feedback and Feed-Forward Equalizers in Multipath Channels.", "coAuthors": "Djendi Mohamed"}, {"fullName": "Khelfaoui Fatima", "title": "Syntesis of hybrid organic-inorganic perovskite films by one step sol-gel method", "coAuthors": "Belaidi Itidel, Attaf Nadhir, Aida Mohamed Saleh"}, {"fullName": "Soraya Gouder", "title": "Design and Analysis of a Dual-Side Polished SPR Biosensor With Wide Sensing Capabilities", "coAuthors": "Samia Gamouh, Djamel Ounnas"}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Nan", "title": "nan", "coAuthors": ""}, {"fullName": "Nada Djedouani", "title": "Towards Enhanced ECG Diagnostics: A Hybrid Deep Learning Approach Bridging Morphological and Temporal Insights", "coAuthors": "Seddik Khemaissia"}, {"fullName": "Bendali Nadir", "title": "Trajectory Optimization for Translational 3-DOF parallel robot Using MQ-RBFs", "coAuthors": ""}, {"fullName": "Saoudi Khadidja", "title": "Type-2 Fuzzy Interpolated Linear Model-Based PD Control of a Two-Link Robotic Manipulator", "coAuthors": "Bdirina Khansa, Guesmi Kamel"}, {"fullName": "Ghanai Mouna", "title": "Type-2 fuzzy membership function Optimization for static and dynamical modeling", "coAuthors": "Moufid Bouhentala, Chafaa Kheireddine"}, {"fullName": "Cheriet Leyla", "title": "Watermarking of Medical Images Using Hybrid DWT-DCT Technique", "coAuthors": "Guiza Dhaouadi, Ounnas Djamel"}];
+
+    let foundPapers = [];
+
+    function normalizeName(str) {
+      return str.toLowerCase()
+                .normalize("NFD").replace(/[̀-ͯ]/g, "") // remove accents
+                .replace(/\s+/g, " ") // collapse multiple spaces
+                .trim();
+    }
+
+    function searchPapers() {
+      const query = document.getElementById("searchInput").value;
+      const paperSelect = document.getElementById("paperSelect");
+      paperSelect.innerHTML = "";
+      foundPapers = papers.filter(p =>
+        normalizeName(p.fullName).includes(normalizeName(query))
+      );
+
+      if (foundPapers.length > 0) {
+        document.getElementById("paperSelectDiv").classList.remove("hidden");
+        foundPapers.forEach((p, index) => {
+          let option = document.createElement("option");
+          option.value = index;
+          option.textContent = p.title;
+          paperSelect.appendChild(option);
+        });
+        loadPaperDetails();
+      } else {
+        alert("❌ No paper found with this name as first author.");
+        document.getElementById("paperSelectDiv").classList.add("hidden");
+        document.getElementById("editForm").classList.add("hidden");
+      }
+    }
+
+    function loadPaperDetails() {
+      const idx = document.getElementById("paperSelect").value;
+      if (idx === "") return;
+      const paper = foundPapers[idx];
+      document.getElementById("editForm").classList.remove("hidden");
+      document.getElementById("fullName").value = paper.fullName;
+      document.getElementById("paperTitle").value = paper.title;
+      document.getElementById("coAuthors").value = paper.coAuthors;
+    }
+
+    document.getElementById("validateButton").addEventListener("click", function() {
+      const name = document.getElementById("fullName").value.trim();
+      const title = document.getElementById("paperTitle").value.trim();
+      const coAuthors = document.getElementById("coAuthors").value.trim();
+      const date = new Date().toLocaleDateString();
+
+      if (!name || !title) {
+        alert("⚠️ Please fill in all required fields.");
+        return;
+      }
+
+      if (confirm("Are you sure all information is correct?")) {
+        // Certificate preview
+        document.getElementById("preview").classList.remove("hidden");
+        document.getElementById("preview").innerHTML = `
+          <div style="text-align:center; padding:20px; border:2px solid #333; border-radius:10px; background:#fff;">
+            <h2 style="color:#003366; margin-bottom:5px;">CERTIFICATE OF PARTICIPATION</h2>
+            <p style="font-size:14px; color:#b22222; margin-top:0;">
+              The First National Conference on Innovation in Electronics and Telecommunication Technologies (NCIETT’2025)<br>
+              Tébessa, Algeria — 23-24 September 2025
+            </p>
+            <p>This certificate is proudly awarded to</p>
+            <h3 style="font-size:24px; margin:10px 0;">${name}</h3>
+            <p>for the valuable participation and contribution at</p>
+            <p><em>Within the framework of NCIETT’2025</em></p>
+            <p>by presenting the paper entitled</p>
+            <h4 style="font-style:italic; margin:15px 0;">« ${title} »</h4>
+            ${coAuthors ? `<p style="font-size:14px; color:#444;">This work was co-authored by: ${coAuthors}</p>` : ""}
+            <p style="margin-top:30px; font-size:14px;">Tébessa, Algeria — 23-24 Sep 2025</p>
+          </div>`;
+
+        // Fill hidden form fields
+        document.getElementById("gf_name").value = name;
+        document.getElementById("gf_title").value = title;
+        document.getElementById("gf_coauthors").value = coAuthors;
+        document.getElementById("gf_date").value = date;
+
+        // Submit hidden form
+        document.getElementById("googleForm").submit();
+
+        // Show visual confirmation
+        let confirmationDiv = document.createElement("div");
+        confirmationDiv.style.color = "green";
+        confirmationDiv.style.fontWeight = "bold";
+        confirmationDiv.style.marginTop = "15px";
+        confirmationDiv.innerText = "✅ Your certificate information has been successfully submitted and recorded.";
+        document.getElementById("preview").appendChild(confirmationDiv);
+
+        // Redirect after 5 seconds
+        setTimeout(() => {
+          window.location.href = "https://nciett2025.sciencesconf.org/";
+        }, 5000);
+      }
+    });
+  </script>
+  <script>
+  // Tableau des Paper IDs importé depuis Excel
+    const validIDs = [628443, 645505, 658324, 645503, 658796, 659339, 658544, 658788, 662361, 657911, 658384, 660523, 661207, 658318, 641120, 660899, 658475, 659493, 662104, 661126, 641182, 658549, 654533, 659464, 669663, 636147, 635508, 660185, 641379, 651078, 659026, 659413, 658321, 660113, 658480, 657234, 669219, 659647, 659457, 659382, 662056, 650837, 659451, 658344, 658368, 644605, 659424, 655132, 658314, 661635, 655159, 659327, 657839, 658185, 660236, 646922, 662402, 644720, 658229, 659229, 660735, 661100, 659041, 656188, 658190, 658798, 660850, 645477, 646005, 659223, 661823, 657022, 660807, 668234, 662103];
+  // (⚠️ ici je n’ai mis qu’un échantillon — je peux te générer la liste complète automatiquement)
+
+  function checkLogin() {
+    const inputId = document.getElementById("paperIdInput").value.trim();
+    const loginMsg = document.getElementById("loginMessage");
+
+    if (validIDs.includes(parseInt(inputId))) {
+      // Succès : afficher la page principale
+      document.getElementById("loginSection").style.display = "none";
+      document.getElementById("mainPage").style.display = "block";
+    } else {
+      // Échec
+      loginMsg.textContent = "❌ Cet ID n'existe pas.";
+    }
+  }
+</script>
 
 </body>
 </html>
