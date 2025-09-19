@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NCIETT’2025 — Certificate Validation</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background:#f7f9fc; }
+    h1 { color:#003366; text-align:center; }
+    form { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); max-width:600px; margin:auto; }
+    label { display:block; margin-top:15px; font-weight:bold; }
+    .required { color:red; }
+    input, textarea { width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:6px; }
+    button { margin-top:20px; padding:12px 24px; background:#003366; color:#fff; border:none; border-radius:6px; cursor:pointer; }
+    button:hover { background:#0055aa; }
+    .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:30px; }
+    .logo-left, .logo-right { height:80px; }
+    .header-title { text-align:center; flex-grow:1; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://nciett2025.sciencesconf.org/data/pages/logo_LTU.png" alt="LTU Logo" class="logo-left">
+  <div class="header-title">
+    <h1>NCIETT’2025 Certificate Validation</h1>
+    <h2>Tébessa, Algeria — 23-24 September 2025</h2>
+    <p>The First National Conference on Innovation in Electronics and Telecommunication Technologies (NCIETT’2025)</p>
+  </div>
+  <img src="https://nciett2025.sciencesconf.org/data/pages/logo_NCIETT_2025.png" alt="NCIETT Logo" class="logo-right">
+</div>
+
+<p style="text-align:center;">Please fill in your information to confirm your certificate details.</p>
+
+<form action="mailto:nciett2025@univ-tebessa.dz" method="post" enctype="text/plain">
+  <label>First & Last Name <span class="required">*</span></label>
+  <input type="text" name="Name" required>
+
+  <label>Paper Title <span class="required">*</span></label>
+  <textarea name="Title" rows="3" required></textarea>
+
+  <label>Co-authors (if any)</label>
+  <input type="text" name="Co-authors">
+
+  <label>Place & Date <span class="required">*</span></label>
+  <input type="text" name="Place" value="Tébessa, Algeria — 23-24 Sep 2025" required>
+
+  <button type="submit">📧 Send Confirmation</button>
+</form>
+
+</body>
+</html>
